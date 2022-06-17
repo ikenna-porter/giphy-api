@@ -11,6 +11,9 @@
 <body>
     <img src="#" alt="">
     <button>Random Dog Gif</button>
+    <br>
+    <br>
+    <input type="search">
     <script>
         const img = document.querySelector('img');
 
@@ -23,7 +26,18 @@
                 .then(function (response) {
                     console.log(response.data.images.original.url);
                 });
-        }) 
+        });
+
+        document.querySelector('[type=search]').addEventListener('search', (e) => {
+            fetch(`https://api.giphy.com/v1/gifs/search?api_key=ClBh0uk8Z55XsOOuSJjh2x0JSULTjR4e&q=${e.target.value}`,
+                { mode: 'cors' })
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (response) {
+                    response.data.forEach((gif) => console.log(gif.url));
+                })
+        });
     </script>
 </body>
 
